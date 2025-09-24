@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initCurvedGallery();
     initCurvedInteractions();
+    initNumberCounters();
     initCtaButtons();
 });
 
@@ -46,6 +47,66 @@ function initSmoothScrolling() {
             }
         });
     });
+}
+
+// Number Counter Animation
+function initNumberCounters() {
+    const observerOptions = {
+        threshold: 0.5, // Start when 50% of the element is visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                animateCount(el);
+                observer.unobserve(el); // Animate only once
+            }
+        });
+    }, observerOptions);
+
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(el => {
+        observer.observe(el);
+    });
+}
+
+function animateCount(el) {
+    const text = el.textContent;
+    const duration = 2000; // Animation duration in ms
+
+    // Extract number and suffix from text like "$1M+", "20K+", "99.9%"
+    const match = text.match(/([$]?)([0-9,.]+)([a-zA-Z%+]?)/);
+    if (!match) return;
+
+    const prefix = match[1] || '';
+    const targetValue = parseFloat(match[2].replace(/,/g, ''));
+    const suffix = match[3] || '';
+
+    if (isNaN(targetValue)) return;
+
+    let startTime = null;
+
+    function step(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const currentVal = progress * targetValue;
+
+        // Handle decimal places for numbers like 99.9 or 2.5
+        if (targetValue % 1 !== 0) {
+            el.textContent = prefix + currentVal.toFixed(1) + suffix;
+        } else {
+            el.textContent = prefix + Math.floor(currentVal).toLocaleString() + suffix;
+        }
+
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            el.textContent = text; // Ensure final value is exactly as in HTML
+        }
+    }
+
+    requestAnimationFrame(step);
 }
 
 // Navbar Effects
