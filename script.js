@@ -190,52 +190,85 @@ function initCtaButtons() {
 
 // Curved Gallery Initialization
 function initCurvedGallery() {
-    const curvedItems = document.querySelectorAll('.curved-item');
-    
-    // Set initial positions with a staggered entrance animation
-    curvedItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        // Set initial transform to something off-screen or faded
-        item.style.transform = getCurvedTransform(index) + ' translateY(50px)';
-        
-        setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = getCurvedTransform(index);
-        }, 150 * index);
-    });
-}
+    const container = document.querySelector('.full-curved-container');
+    if (!container) return;
 
-// Get curved transform for each item
-function getCurvedTransform(index) {
-    const transforms = [
-        'translateX(-600px) translateZ(-400px) rotateY(50deg) scale(1.1)',
-        'translateX(-300px) translateZ(-200px) rotateY(25deg) scale(0.95)',
-        'translateX(0) translateZ(0) rotateY(0deg) scale(0.8)', // Center - Smallest
-        'translateX(300px) translateZ(-200px) rotateY(-25deg) scale(0.95)',
-        'translateX(600px) translateZ(-400px) rotateY(-50deg) scale(1.1)'
-    ];
-    return transforms[index] || transforms[0];
+    const items = Array.from(container.querySelectorAll('.curved-item'));
+    let positions = [];
+
+    function getResponsivePositions() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 480) { // Mobile
+            return [
+                'translateX(-200px) translateZ(-150px) rotateY(50deg) scale(0.8)',
+                'translateX(-100px) translateZ(-75px) rotateY(25deg) scale(0.9)',
+                'translateX(0) translateZ(0) rotateY(0deg) scale(0.7)',
+                'translateX(100px) translateZ(-75px) rotateY(-25deg) scale(0.9)',
+                'translateX(200px) translateZ(-150px) rotateY(-50deg) scale(0.8)'
+            ];
+        } else if (screenWidth <= 768) { // Tablet
+            return [
+                'translateX(-400px) translateZ(-250px) rotateY(50deg) scale(1.0)',
+                'translateX(-200px) translateZ(-125px) rotateY(25deg) scale(0.9)',
+                'translateX(0) translateZ(0) rotateY(0deg) scale(0.8)',
+                'translateX(200px) translateZ(-125px) rotateY(-25deg) scale(0.9)',
+                'translateX(400px) translateZ(-250px) rotateY(-50deg) scale(1.0)'
+            ];
+        } else { // Desktop
+            return [
+                'translateX(-600px) translateZ(-400px) rotateY(50deg) scale(1.1)',
+                'translateX(-300px) translateZ(-200px) rotateY(25deg) scale(0.95)',
+                'translateX(0) translateZ(0) rotateY(0deg) scale(0.8)',
+                'translateX(300px) translateZ(-200px) rotateY(-25deg) scale(0.95)',
+                'translateX(600px) translateZ(-400px) rotateY(-50deg) scale(1.1)'
+            ];
+        }
+    }
+
+    function updatePositions(isInitial = false) {
+        positions = getResponsivePositions();
+        items.forEach((item, index) => {
+            const transform = positions[index] || positions[0];
+            if (isInitial) {
+                item.style.opacity = '0';
+                item.style.transform = transform + ' translateY(50px)';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = transform;
+                }, 150 * index);
+            } else {
+                item.style.transform = transform;
+            }
+        });
+    }
+
+    // Initial setup
+    updatePositions(true);
+
+    // Update on resize
+    window.addEventListener('resize', debounce(updatePositions, 200));
 }
 
 // Curved Gallery Interactions
 function initCurvedInteractions() {
     const curvedItems = document.querySelectorAll('.curved-item');
+    if (curvedItems.length > 0) {
+        // Individual item interactions
+        curvedItems.forEach((item) => {
+            // Click to zoom in and out
+            item.addEventListener('click', function() {
+                // If already zoomed, do nothing.
+                if (this.classList.contains('zoomed')) {
+                    return;
+                }
+                // Add the 'zoomed' class to trigger the CSS transition
+                this.classList.add('zoomed');
 
-    // Individual item interactions
-    curvedItems.forEach((item, index) => {
-        // Click to zoom in and out
-        item.addEventListener('click', function() {
-            // If already zoomed, do nothing.
-            if (this.classList.contains('zoomed')) {
-                return;
-            }
-            // Add the 'zoomed' class to trigger the CSS transition
-            this.classList.add('zoomed');
-
-            // Set a timer to remove the class, which will make it go back
-            setTimeout(() => {
-                this.classList.remove('zoomed');
-            }, 1500); // The image will stay zoomed for 1.5 seconds
+                // Set a timer to remove the class, which will make it go back
+                setTimeout(() => {
+                    this.classList.remove('zoomed');
+                }, 1500); // The image will stay zoomed for 1.5 seconds
+            });
         });
-    });
+    }
 }
