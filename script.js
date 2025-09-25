@@ -20,11 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionalities
     initSmoothScrolling();
     initNavbarEffects();
+    initMobileMenu();
     initScrollAnimations();
     initCurvedGallery();
     initCurvedInteractions();
     initNumberCounters();
     initCtaButtons();
+    initScrollProgress();
+    initHeroTilt();
 });
 
 // Smooth Scrolling for Navigation
@@ -132,6 +135,35 @@ function initNavbarEffects() {
     }, 10);
 
     window.addEventListener('scroll', handleScroll);
+}
+
+// Mobile menu (hamburger) toggle
+function initMobileMenu() {
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('primary-nav');
+    if (!toggle || !nav) return;
+
+    function closeMenu() {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close when clicking a link
+    nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => closeMenu());
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMenu();
+        }
+    });
 }
 
 // Gallery Interactions
@@ -271,4 +303,47 @@ function initCurvedInteractions() {
             });
         });
     }
+}
+
+// Scroll progress bar
+function initScrollProgress() {
+    const bar = document.querySelector('.scroll-progress__bar');
+    if (!bar) return;
+    const update = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.max(0, Math.min(1, scrollTop / docHeight));
+        bar.style.width = (progress * 100).toFixed(2) + '%';
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', debounce(update, 100));
+}
+
+// Hero card tilt interaction
+function initHeroTilt() {
+    const card = document.querySelector('.nft-display .nft-card-inner');
+    const container = document.querySelector('.nft-display');
+    if (!card || !container) return;
+    const strength = 12;
+    function handle(e) {
+        const rect = container.getBoundingClientRect();
+        const x = (e.clientX ?? (e.touches && e.touches[0].clientX)) - rect.left;
+        const y = (e.clientY ?? (e.touches && e.touches[0].clientY)) - rect.top;
+        const rx = ((y / rect.height) - 0.5) * -strength;
+        const ry = ((x / rect.width) - 0.5) * strength;
+        card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    }
+    function reset() {
+        card.style.transform = 'rotateX(0) rotateY(0)';
+    }
+    container.addEventListener('mousemove', handle);
+    container.addEventListener('mouseleave', reset);
+    container.addEventListener('touchmove', handle, { passive: true });
+    container.addEventListener('touchend', reset);
+
+    // Flip on click/tap only (no auto flip)
+    container.addEventListener('click', () => {
+        container.classList.toggle('is-flipped');
+    });
 }

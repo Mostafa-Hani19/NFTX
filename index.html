@@ -12,6 +12,7 @@
 
 </head>
 <body>
+    <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -20,18 +21,18 @@
                 <span class="logo-text">NFTX</span>
             </div>
             
-            <nav class="nav" id="main-nav">
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+            </button>
+
+            <nav id="primary-nav" class="nav" role="navigation">
                 <a href="#features-section" class="nav-link">Features</a>
                 <a href="#full-curved-gallery" class="nav-link">Collections</a>
                 <a href="#testimonials-section" class="nav-link">Testimonials</a>
                 <a href="#footer" class="nav-link">Contact</a>
             </nav>
-
-            <button class="hamburger" id="hamburger-button" aria-label="Toggle menu" aria-expanded="false">
-                <span class="hamburger-box"></span>
-                <span class="hamburger-box"></span>
-                <span class="hamburger-box"></span>
-            </button>
             
         </div>
     </header>
@@ -84,8 +85,14 @@
                             <div class="nft-card-back">
                                 <div class="nft-info">
                                     <h3 class="back-card-title">Discover Electronic Design via NFT.</h3>
-                                    <p class="back-card-desc">Instant buying action.</p>
-                                    <button class="back-card-button">Buy Now</button>
+                                    <p class="back-card-desc">Each piece holds a unique story and verifiable ownership on the blockchain.</p>
+                                    <ul class="back-card-list">
+                                        <li>Zero gas fees on featured drops.</li>
+                                        <li>Verified ownership and instant transfers.</li>
+                                        <li>Creator royalties to support artists.</li>
+                                        <li>Curated collections updated weekly.</li>
+                                    </ul>
+                                    <p class="back-card-cta">Click 'Get Started' to explore the full collection</p>
                                 </div>
                             </div>
                         </div>
