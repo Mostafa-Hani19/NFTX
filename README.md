@@ -1,35 +1,35 @@
-# NFTX - منصة NFTs الرقمية
+#NFTX - The Digital NFT Platform
 
-موقع ويب كامل لمنصة NFTs مع تصميم داكن حديث ومتجاوب.
+A complete NFT platform website with a modern, responsive dark theme.
 
-## المميزات
+## Features
 
-- 🎨 تصميم داكن حديث مع تأثيرات بصرية متقدمة
-- 📱 متجاوب مع جميع الأجهزة (Desktop, Tablet, Mobile)
-- 🖼️ استخدام الصور كـ CSS classes بدلاً من الروابط المباشرة
-- ⚡ تفاعلات JavaScript متقدمة
-- 🌟 تأثيرات Parallax و Animations
-- 🎨 تأثيرات Hover و Ripple
-- 🌈 **قسم: Full Screen Curved Gallery** - عرض الصور في قوس يغطي الشاشة
-- 🎭 **تأثيرات 3D** للصور مع دوران وعمق على الشاشات الكبيرة
-- 📱 **على الموبايل**: سكرول أفقي مع Scroll Snap لاستعراض كل الصور بسهولة
-- 🧩 ضبط المسافات الرأسية فوق وتحت المعرض لتحسين الاستفادة من المساحة على الشاشات الصغيرة
+- 🎨 Modern dark design with advanced visual effects
+- 📱 Responsive to all devices (Desktop, Tablet, Mobile)
+- 🖼️ Use images as CSS classes instead of direct links
+- ⚡ Advanced JavaScript interactions
+- 🌟 Parallax and animation effects
+- 🎨 Hover and Ripple effects
+- 🌈 **Section: Full Screen Curved Gallery** - Display images in an arc that covers the screen
+- 🎭 **3D effects** for images with rotation and depth on large screens
+- 📱 **On Mobile**: Horizontal scrolling with Scroll Snap to easily browse all images
+- 🧩 Adjust vertical spacing above and below the gallery to optimize space utilization on small screens
 
-## الملفات
+## Files
 
-- `index.html` - الصفحة الرئيسية
-- `styles.css` - ملف التصميم الرئيسي
-- `script.js` - ملف JavaScript للتفاعلات
-- `aseets/` - مجلد الصور (1.webp - 8.webp)
+- `index.html` - Homepage
+- `styles.css` - Main design file
+- `script.js` - JavaScript file For Interactions
+- `aseets/` - Images Folder (1.webp - 8.webp)
 
-## كيفية الاستخدام
+## How to Use
 
-1. افتح ملف `index.html` في المتصفح
-2. استمتع بالتصفح والتفاعل مع الموقع
+1. Open the `index.html` file in your browser.
+2. Enjoy browsing and interacting with the site.
 
-## الصور المستخدمة
+## Images Used
 
-تم استخدام الصور من مجلد `aseets` كـ CSS background classes:
+Images from the `aseets` folder were used as CSS background classes:
 
 ```css
 .nft-image-1 { background-image: url('./aseets/1.webp'); }
@@ -42,30 +42,30 @@
 .nft-image-8 { background-image: url('./aseets/8.webp'); }
 ```
 
-## المميزات التقنية
+## Technical Features
 
-- **HTML5** مع دعم RTL للعربية
-- **CSS3** مع Flexbox و Grid
-- **JavaScript ES6+** مع أحدث المميزات
-- **Responsive Design** مع Media Queries
+- **HTML5** with RTL support for Arabic
+- **CSS3** with Flexbox and Grid
+- **JavaScript ES6+** with the latest features
+- **Responsive Design** with Media Queries
 - **Smooth Scrolling**
-- **Performance Optimization** مع Debouncing
+- **Performance Optimization** with Debouncing
 
-## المتصفحات المدعومة
+## Supported Browsers
 
-- Chrome (الأحدث)
-- Firefox (الأحدث)
-- Safari (الأحدث)
-- Edge (الأحدث)
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
-## التخصيص
+## Customization
 
-يمكنك بسهولة تخصيص:
-- الألوان في ملف `styles.css`
-- النصوص في ملف `index.html`
-- التفاعلات في ملف `script.js`
-- الصور في مجلد `aseets`
+You can easily customize:
+- Colors in the `styles.css` file
+- Text in the `index.html` file
+- Interactions in the `script.js` file
+- Images in the `aseets` folder
 
 ---
 
-تم إنشاء هذا الموقع باستخدام أحدث تقنيات الويب مع التركيز على الأداء وتجربة المستخدم. 
+This website was built using the latest web technologies with a focus on performance and user experience.
